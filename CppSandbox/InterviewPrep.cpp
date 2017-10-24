@@ -5,36 +5,36 @@
  */
 
 /* 
- * File:   GsInterviewPrep.cpp
+ * File:   InterviewPrep.cpp
  * Author: W
  * 
  * Created on October 3, 2017, 10:23 PM
  */
 
-#include "GsInterviewPrep.h"
+#include "InterviewPrep.h"
 #include <iostream>
 
 
-GsInterviewPrep::GsInterviewPrep() {
+InterviewPrep::InterviewPrep() {
 }
 
-GsInterviewPrep::GsInterviewPrep(const GsInterviewPrep& orig) {
+InterviewPrep::InterviewPrep(const InterviewPrep& orig) {
 }
 
-GsInterviewPrep::~GsInterviewPrep() {
+InterviewPrep::~InterviewPrep() {
 }
 
 
 int main(int argc, char** argv) 
 {   
-    GsInterviewPrep test;
+    InterviewPrep test;
     test.TestNumberOperations();
     test.TestLinkedList();
     test.TestBinaryTree();
     test.TestStringOperations();
 }
 
-void GsInterviewPrep::TestLinkedList()
+void InterviewPrep::TestLinkedList()
 {
     LinkedList list;
     list.insert(0);
@@ -51,7 +51,7 @@ void GsInterviewPrep::TestLinkedList()
     }
 }
 
-void GsInterviewPrep::TestNumberOperations()
+void InterviewPrep::TestNumberOperations()
 {
     PrimeFactors(197);
     PrimeFactors(25);    
@@ -69,7 +69,7 @@ void GsInterviewPrep::TestNumberOperations()
     biggestSum = longestSum(v);
 }
     
-void GsInterviewPrep::TestStringOperations()
+void InterviewPrep::TestStringOperations()
 {
     int h1 = hashCode("boat");
     int h2 = hashCode("taob");
@@ -110,7 +110,7 @@ void GsInterviewPrep::TestStringOperations()
 
 }
 
-void GsInterviewPrep::TestBinaryTree()
+void InterviewPrep::TestBinaryTree()
 {
     std::cout << "Binary tree operations" << std::endl;
     BinaryTree myTree;

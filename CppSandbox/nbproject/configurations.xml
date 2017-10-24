@@ -5,8 +5,8 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>AutoPtr.h</itemPath>
-      <itemPath>GsInterviewPrep.h</itemPath>
       <itemPath>InheritanceTest.h</itemPath>
+      <itemPath>InterviewPrep.h</itemPath>
       <itemPath>SharedPtr.h</itemPath>
       <itemPath>SimpleBinaryTree.h</itemPath>
       <itemPath>ThreadSafeQueue.h</itemPath>
@@ -18,7 +18,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>GsInterviewPrep.cpp</itemPath>
+      <itemPath>InterviewPrep.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -52,11 +52,11 @@
       </compileType>
       <item path="AutoPtr.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="GsInterviewPrep.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="GsInterviewPrep.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="InheritanceTest.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InterviewPrep.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="InterviewPrep.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="SharedPtr.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -90,11 +90,11 @@
       </compileType>
       <item path="AutoPtr.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="GsInterviewPrep.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="GsInterviewPrep.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="InheritanceTest.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InterviewPrep.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="InterviewPrep.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="SharedPtr.h" ex="false" tool="3" flavor2="0">
       </item>

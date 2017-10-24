@@ -5,14 +5,14 @@
  */
 
 /* 
- * File:   GsInterviewPrep.h
+ * File:   InterviewPrep.h
  * Author: W
  *
  * Created on October 3, 2017, 10:23 PM
  */
 
-#ifndef GSINTERVIEWPREP_H
-#define GSINTERVIEWPREP_H
+#ifndef INTERVIEWPREP_H
+#define INTERVIEWPREP_H
 
 #include <cstddef>
 #include <algorithm>
@@ -22,11 +22,11 @@
 #include <math.h>
 #include "limits.h"
 
-class GsInterviewPrep {
+class InterviewPrep {
 public:
-    GsInterviewPrep();
-    GsInterviewPrep(const GsInterviewPrep& orig);
-    virtual ~GsInterviewPrep();
+    InterviewPrep();
+    InterviewPrep(const InterviewPrep& orig);
+    virtual ~InterviewPrep();
     
     //Binary tree ops
     //Traverse
@@ -366,5 +366,5 @@ class LinkedList
     
 };
 
-#endif /* GSINTERVIEWPREP_H */
+#endif /* INTERVIEWPREP_H */
 
