@@ -13,7 +13,7 @@
 
 #include "InterviewPrep.h"
 #include <iostream>
-
+#include <unordered_map>
 
 InterviewPrep::InterviewPrep() {
 }
@@ -138,6 +138,118 @@ void InterviewPrep::TestBinaryTree()
     
     std::cout << "Depth first traverse - post-order: "<< std::endl;
     myTree.DepthFirstTraversePostOrder(root);
+}
+
+
+int InterviewPrep::numMultiples(int n)
+{
+    int m3 = 0, m5 = 0, runningSum = 0;
+    bool m3Done = false, m5Done = false;
+    
+    while(!m3Done || !m5Done)
+    {
+        m3 += 3;
+        if(m3 >= n)
+        {    
+            m3Done = true;
+        }
+        else
+        {
+            if(m3%5 != 0)
+            runningSum += m3;
+        }
+        
+        m5 += 5;
+        if(m5 >= n)
+        {
+            m5Done = true;
+        }
+        else
+        {
+            runningSum += m5;
+        }
+    }
+    return runningSum;    
+}
+
+void InterviewPrep::FibonacciSequence(int max)
+{
+    int n= 0, m = 0, curr = 0, sumEvens = 0;
+    
+    while(curr < max)
+    {
+        if(n == 0)
+        {
+            m = 1;
+        }
+        curr = n + m;
+        if(curr%2 == 0)
+            sumEvens +=curr;
+        
+        n = m;
+        m = curr;
+    }
+    std::cout << std::endl << sumEvens << std::endl;
+}
+
+long int InterviewPrep::largestPrimeFactor(long int n)
+{
+    std::vector<long int> allPrimes, primeFactors;
+    PrimeSieve(n, allPrimes);
+    
+    for(long int p : allPrimes)
+    {
+        if(n%p == 0)
+        {
+            primeFactors.push_back(p);
+        }
+    }
+    
+    long int largestPrimeFactor = 0;
+    for(long int pf : primeFactors)
+    {
+        if(pf > largestPrimeFactor)
+            largestPrimeFactor = pf;
+    }
+    
+    return largestPrimeFactor;
+}
+
+void InterviewPrep::PrimeSieve(long int n, std::vector<long int>& v)
+{
+    int size = sqrt(n);
+    std::unordered_map<int, bool>isPrime;
+    
+    std::cout << "Creating map" << std::endl;
+    for(int i=0; i < n; i++)
+    {
+        isPrime.insert(std::make_pair(i,false));
+        if(i%10000 == 0)
+            std::cout << i << std::endl;
+    }
+    
+    
+    std::cout << "Sieve" << std::endl;
+    for(long int factor = 2; factor * factor <= size; factor++)
+    {
+        if(isPrime[factor])
+        {
+            for(long int j = factor; factor*j <= size; j++)
+                isPrime[factor*j] = false;
+        }
+         if(factor%10000 == 0)
+            std::cout << factor << std::endl;
+    }
+    
+    
+    std::cout << "Gathering Results" << std::endl;
+    for(int i = 0; i<size; i++)
+    {
+        if(isPrime[i] == true)
+            v.push_back(i);
+         if(i%10000 == 0)
+             std::cout << i << std::endl;
+    }
 }
 
 

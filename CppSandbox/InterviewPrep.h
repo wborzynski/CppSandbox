@@ -28,6 +28,12 @@ public:
     InterviewPrep(const InterviewPrep& orig);
     virtual ~InterviewPrep();
     
+    
+    //Add:
+    //Num Paths in Graph
+    //Longest sequence with consecutive numbers
+    
+    
     //Binary tree ops
     //Traverse
     //Flatten
@@ -209,7 +215,12 @@ public:
     
     //Set
     
-    
+
+    int numMultiples(int n);
+    void FibonacciSequence(int n);
+    void PrimeSieve(long int n, std::vector<long int>& v);
+    long int largestPrimeFactor(long int n);
+   
 private:
 
 };
