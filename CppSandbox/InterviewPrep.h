@@ -21,6 +21,7 @@
 #include <string>
 #include <math.h>
 #include <set>
+#include <unordered_set>
 #include "limits.h"
 
 class InterviewPrep {
@@ -35,7 +36,7 @@ public:
     int longestConsecutiveNumberSequence(std::vector<int> vec)
     {
         int longestSequence = 0, longestSoFar = 0, lastNum = 0;
-        std::sort(vec.begin(), vec.end(), vec.begin());
+        std::sort(vec.begin(), vec.end());
         for(auto const& i : vec)
         {
             if(i == lastNum + 1)
@@ -54,27 +55,29 @@ public:
     }
     
     //Longest sequence with consecutive numbers
-    /*int longestConsecutiveNumberSequenceNoSort(std::vector<int>& vec)
+    int longestConsecutiveNumberSequenceNoSort(std::vector<int>& vec)
     {
-        std::set<int> numbersSoFar;
+        std::unordered_set<int> s;
         int longestSequence = 0, longestSoFar = 0;
         
         for(auto const& i : vec)
         {
-            int tmp = i + 1;
-            while(numbersSoFar.find(tmp)!= numbersSoFar.end())
+            s.insert(i);
+        }
+        for(auto const& i : s)    
+        {
+            int f = i+1;
+            while(s.find(f) != s.end())
             {
-                longestSoFar++;
-                tmp++;
+                f++;
+                 longestSoFar++;   
+                 if(longestSoFar > longestSequence)
+                     longestSequence = longestSoFar;
             }
-            if(longestSoFar > longestSequence)
-            {
-                longestSequence = longestSoFar;
-                longestSoFar = 0;
-            }
+            longestSoFar = 0;
         }
         return longestSequence;
-    }*/
+    }
     
     
     
@@ -86,6 +89,10 @@ public:
         
         
     }
+    
+    
+    
+    
     
     int getDaysInMonth(int m, int y)
     {
