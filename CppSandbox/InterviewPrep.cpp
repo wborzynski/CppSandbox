@@ -63,10 +63,26 @@ void InterviewPrep::TestNumberOperations()
     
     std::vector<int> v = {10, 3, 12, -1, 13, 4, 16, -5, 20, 4};
     int biggestSum = longestSum(v);
-    
-    
+       
     v = {-1, -22, -11, -1, -2};
     biggestSum = longestSum(v);
+
+    int numPaths = getNumberOfPathsInGraph(2,2);
+    
+    numPaths = getNumberOfPathsInGraph(2,1);
+    numPaths = getNumberOfPathsInGraph(1,3);
+    numPaths = getNumberOfPathsInGraph(0,3);
+    numPaths = getNumberOfPathsInGraph(3, 0);
+    numPaths = getNumberOfPathsInGraph(4, 3);
+    
+    
+    v = {5, 2, 1, 7, 3, 4, 8, 1, 9, 10, 11, 12};
+    int n = longestConsecutiveNumberSequence(v);
+    std::cout << "Longest consecutive sequence:" << n << std::endl;
+
+    n = longestConsecutiveNumberSequenceNoSort(v);
+    std::cout << "Longest consecutive sequence (no sort):" << n << std::endl;
+
 }
     
 void InterviewPrep::TestStringOperations()
@@ -98,7 +114,7 @@ void InterviewPrep::TestStringOperations()
     std::cout << "isPalindrome: madam:" << isPalindrome("madam") << std::endl;
     std::cout << "isPalindrome: turd:" << isPalindrome("turd") << std::endl;
     std::cout << "isPalindrome: turd:" << isPalindrome("tutu") << std::endl;
-    std::cout << "isPalindrome: turd:" << isPalindrome("Appa") << std::endl;
+    std::cout << "isPalindrome: turd:" << isPalindrome("asdf") << std::endl;
     
     std::cout << "isAnagram: sudden, neddus : " << isAnagram("sudden", "neddus") << std::endl ;
     std::cout << "isAnagram: dare, read : " << isAnagram("dare", "read") << std::endl ;

@@ -20,6 +20,7 @@
 #include <iostream>
 #include <string>
 #include <math.h>
+#include <set>
 #include "limits.h"
 
 class InterviewPrep {
@@ -30,9 +31,145 @@ public:
     
     
     //Add:
-    //Num Paths in Graph
     //Longest sequence with consecutive numbers
+    int longestConsecutiveNumberSequence(std::vector<int> vec)
+    {
+        int longestSequence = 0, longestSoFar = 0, lastNum = 0;
+        std::sort(vec.begin(), vec.end(), vec.begin());
+        for(auto const& i : vec)
+        {
+            if(i == lastNum + 1)
+            {
+                longestSoFar ++;
+                if(longestSoFar > longestSequence)
+                    longestSequence = longestSoFar;
+            }
+            else
+            {
+                longestSoFar = 0;
+            }
+            lastNum = i;
+        }
+        return longestSequence;
+    }
     
+    //Longest sequence with consecutive numbers
+    /*int longestConsecutiveNumberSequenceNoSort(std::vector<int>& vec)
+    {
+        std::set<int> numbersSoFar;
+        int longestSequence = 0, longestSoFar = 0;
+        
+        for(auto const& i : vec)
+        {
+            int tmp = i + 1;
+            while(numbersSoFar.find(tmp)!= numbersSoFar.end())
+            {
+                longestSoFar++;
+                tmp++;
+            }
+            if(longestSoFar > longestSequence)
+            {
+                longestSequence = longestSoFar;
+                longestSoFar = 0;
+            }
+        }
+        return longestSequence;
+    }*/
+    
+    
+    
+    
+    //Date Diff
+    int dateDiffInDays(int d1, int m1, int y1, int d2, int m2, int y2)
+    {
+        int daysDiff = 0;
+        
+        
+    }
+    
+    int getDaysInMonth(int m, int y)
+    {
+        int days = 31;
+        std::set<int> thirtyOneDayMonths = {1, 3, 5, 7, 8, 10, 12}; 
+    
+        if(m==2)
+        {
+            if(isLeapYear(y))
+                days = 29;
+            else
+                days = 28;
+        }
+        else if(thirtyOneDayMonths.find(m) == thirtyOneDayMonths.end())
+        {
+            days = 30;
+        }
+        return days;
+    }
+    
+    bool isLeapYear(int y)
+    {
+        if((y%4 == 0 && y%100 != 0) || y%400 == 0)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    
+    /*
+     Given a mxn graph, provide the number of different paths you can shoose to 
+     * get from point A (0,0) to B(mxn), provided you can only move up or to the right.
+     * 
+     * e.g:
+     * 
+     * m=2 x n=2, numPaths = 6
+     *  _ _B
+     * |_|_|
+     * |_|_|
+     * A
+     * 
+     * m=2 x n=1, numPaths = 3
+     *  _ _B
+     * |_|_|
+     * A
+     * 
+     * m=1 x n=3, numPaths = 4
+     *  _ B
+     * |_|
+     * |_|
+     * |_|
+     * A
+     * 
+     * m=0 x n=3, numPaths = 1
+     * 
+     * B
+     * |
+     * |
+     * |
+     * A
+     * 
+     * m=3 x n=0, numPaths = 1
+     * 
+     * A_ _ _B
+     * 
+     * m=4 x n=3, numPaths = 35
+     *  _ _ _ _B
+     * |_|_|_|_|
+     * |_|_|_|_|
+     * |_|_|_|_|
+     * A
+     * 
+     * 
+         
+     */
+    int getNumberOfPathsInGraph(int m, int n)
+    {
+        if(m==0 | n==0)
+            return 1;
+        else
+            return getNumberOfPathsInGraph(m-1, n) + getNumberOfPathsInGraph(m, n-1);        
+    }
     
     //Binary tree ops
     //Traverse
