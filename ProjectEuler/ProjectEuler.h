@@ -18,7 +18,8 @@
 #include <math.h>
 #include <algorithm>
 #include <string>
-
+#include <limits>
+#include <queue>
 class ProjectEuler
 {
     public:
@@ -149,9 +150,184 @@ class ProjectEuler
                 itBegin++;
                 itEnd--;
             }
-            return isPalindrome;
-            
+            return isPalindrome;   
         }
+        
+        /*
+         * Problem 5 
+         * Smallest multiple
+         * 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+         * What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20? 
+         */
+        
+        static int SmallestDivisibleByAllNumbersUnder(int n)
+        {
+            int result = 0;
+            
+            while(result < std::numeric_limits<int>::max())
+            {
+                bool divisibleByAll = true;
+                result +=n;
+                
+                for(int div = n-1; div > 1; div--)
+                {
+                    if(result % div != 0)
+                    {
+                        divisibleByAll = false;
+                        break;
+                    }
+                }
+                if(divisibleByAll)
+                    return result;
+            }
+        }
+        
+        /*
+         * Problem 6 
+         * Sum square difference
+         * The sum of the squares of the first ten natural numbers is,
+         * 1^2 + 2^2 + ... + 10^2 = 385
+         * The square of the sum of the first ten natural numbers is,
+         * (1 + 2 + ... + 10)^2 = 552 = 3025
+         * Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025 − 385 = 2640.
+         * Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+         */
+        
+        static int SumSquareDifference(int n)
+        {
+            int sumSoFar = 0;
+            int sumSquares = 0;
+            
+            for(int i=1; i <= n; i++)
+            {
+                sumSoFar += i;
+                sumSquares += std::pow(i, 2);
+            }
+            int sumSoFarSquared = std::pow(sumSoFar,2);
+            return sumSoFarSquared - sumSquares;
+        }
+        
+        /* Problem 6:
+         * 10,001st prime number         
+         */
+        static long int GetNthPrime(int n)
+        {
+            int count = 2;
+            long int prime = 3;
+            
+            while(count < n)
+            {
+                prime += 2;
+                bool isPrime = true;
+                for(int div = 3; div <= std::sqrt(prime); div++)
+                {
+                    if(prime % div == 0)
+                    {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if(isPrime == true)
+                {
+                    count++;
+                }
+            }
+            return prime;
+        }
+        
+        /* Problem 8 
+         * Largest product in a series
+         * The four adjacent digits in the 1000-digit number that have the greatest product are 9 × 9 × 8 × 9 = 5832.
+            73167176531330624919225119674426574742355349194934
+            96983520312774506326239578318016984801869478851843
+            85861560789112949495459501737958331952853208805511
+            12540698747158523863050715693290963295227443043557
+            66896648950445244523161731856403098711121722383113
+            62229893423380308135336276614282806444486645238749
+            30358907296290491560440772390713810515859307960866
+            70172427121883998797908792274921901699720888093776
+            65727333001053367881220235421809751254540594752243
+            52584907711670556013604839586446706324415722155397
+            53697817977846174064955149290862569321978468622482
+            83972241375657056057490261407972968652414535100474
+            82166370484403199890008895243450658541227588666881
+            16427171479924442928230863465674813919123162824586
+            17866458359124566529476545682848912883142607690042
+            24219022671055626321111109370544217506941658960408
+            07198403850962455444362981230987879927244284909188
+            84580156166097919133875499200524063689912560717606
+            05886116467109405077541002256983155200055935729725
+            71636269561882670428252483600823257530420752963450
+         * Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is the value of this product?
+         */
+        static int charToInt(char c)
+        {
+           int arr[]={0,1,2,3,4,5,6,7,8,9};
+           return arr[c-'0'];
+        }
+        
+        static void printQueue(std::queue<int>& q)
+        {
+            std::queue<int> copy(q);
+            
+            std::cout << "Size:" << copy.size() << std::endl;
+            while(!copy.empty())
+            {
+                std::cout << copy.front();
+                copy.pop();                
+            }
+            std::cout << std::endl;
+        }
+        
+        static long int GetBiggestAdjacentProduct(std::string& strInput, int nSeq)
+        {
+            std::vector<int> nums;
+            for(auto it = strInput.begin(); it < strInput.end(); it++)
+            {
+                int n = charToInt(*it);
+                nums.push_back(n);
+            }
+            
+            std::queue<int> q;
+            long int longestProduct=1;
+            long int productSoFar=1;
+            
+            for(auto& n : nums)
+            {
+                if(n == 0)
+                {
+                    if(q.size() == 13 && productSoFar > longestProduct)
+                    {
+                        longestProduct = productSoFar;
+                    }
+                    while(!q.empty())
+                        q.pop();
+                    
+                    productSoFar = 1;
+                }
+                else if(q.size() < nSeq)
+                {
+                    q.push(n);
+                    productSoFar *= n;
+                }
+                else
+                {
+                    if(productSoFar > longestProduct)
+                    {
+                        longestProduct = productSoFar;
+                    }
+                    int div = q.front();
+                    productSoFar = productSoFar / div;
+                    
+                    q.pop();
+                    
+                    productSoFar *= n;
+                    q.push(n);                  
+                }
+            }
+            return longestProduct;
+        }
+        
         
 };
 
