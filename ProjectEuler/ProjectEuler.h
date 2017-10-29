@@ -14,6 +14,11 @@
 #ifndef PROJECTEULER_H
 #define PROJECTEULER_H
 
+#include <vector>
+#include <math.h>
+#include <algorithm>
+#include <string>
+
 class ProjectEuler
 {
     public:
@@ -67,6 +72,87 @@ class ProjectEuler
             }
             return sumEvens;
         }
+        
+        /*
+         * Problem 3 
+         * The prime factors of 13195 are 5, 7, 13 and 29.
+         * What is the largest prime factor of the number 600851475143 ?
+         */
+        static void GetPrimeFactors(long int n, std::vector<int>& primes)
+        {
+            while(n%2 == 0)
+            {
+                n = n/2;
+            }
+            
+            for(int i=3; i < std::sqrt(n); i++)
+            {
+                while(n%i == 0)
+                {
+                    primes.push_back(i);
+                    n = n / i;
+                }
+            } 
+            if(n > 2)
+                primes.push_back(n);
+        }
+        
+        /*
+         * Problem 4
+         * Largest palindrome product
+         * A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+         * Find the largest palindrome made from the product of two 3-digit numbers. 
+         */
+        
+        static int LargestPalindrome()
+        {
+            int n = 999 * 999;
+            
+            while(n > 100 * 100)
+            {
+                if(isPalindrome(n))
+                {
+                    int multiplier = 999;
+                    while(multiplier > 100)
+                    {
+                        if(n % multiplier == 0)
+                        {
+                            int m2 = n / multiplier;
+                            if(m2 <= 999 && m2 >= 100)
+                                return n;
+                        }
+                        multiplier--; 
+                    }
+                }
+                n--;
+            }
+            return n;
+        }
+        
+        //There's probably a better way to do this check without converting to strings...
+        static bool isPalindrome(int n)
+        {
+            bool isPalindrome = true;
+            std::string s = std::to_string(n);
+            
+            auto itBegin = s.begin();
+            //pre-decrement end  pointer, as this points at the null string terminator
+            auto itEnd = --s.end();
+            
+            while(itBegin < itEnd)
+            {
+                if(*itBegin != *itEnd)
+                {
+                    isPalindrome = false;
+                    break;
+                }
+                itBegin++;
+                itEnd--;
+            }
+            return isPalindrome;
+            
+        }
+        
 };
 
 #endif /* PROJECTEULER_H */

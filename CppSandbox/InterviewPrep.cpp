@@ -4,14 +4,11 @@
  * and open the template in the editor.
  */
 
-/* 
- * File:   InterviewPrep.cpp
- * Author: W
- * 
- * Created on October 3, 2017, 10:23 PM
- */
+/*  * 
 
-#include "InterviewPrep.h"
+ * File:   InterviewPrep.cpp
+ * Author: 
+ * #include "InterviewPrep.h"
 #include <iostream>
 #include <unordered_map>
 
