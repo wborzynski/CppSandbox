@@ -95,35 +95,28 @@ void InterviewPrep::TestStringOperations()
     
     std::cout << "String operations:" << std::endl;;
     
-    std::string text = "I am so fucking pissed off right now";
-    std::string pattern = "maybe";
+    std::string text = "Oh my God, they killed Kenny!";
+    std::string pattern = "Kenny";
     
     std::cout << "IsSubstring:" << text << " , " << pattern << " : " << isSubstring(pattern, text) << std::endl;
-    pattern = "fucking";
+    pattern = "you bastards!";
     std::cout << "IsSubstring:" << text << " , " << pattern << " : " << isSubstring(pattern, text) << std::endl;
-    pattern = "now";
+    pattern = "Oh";
     std::cout << "IsSubstring:" << text << " , " << pattern << " : " << isSubstring(pattern, text) << std::endl;
-    pattern = "w";
+    pattern = "Kenny!";
     std::cout << "IsSubstring:" << text << " , " << pattern << " : " << isSubstring(pattern, text) << std::endl;
-    pattern = "fuckit";
-    std::cout << "IsSubstring:" << text << " , " << pattern << " : " << isSubstring(pattern, text) << std::endl;
-    pattern = "I";
+    pattern = "killed";
     std::cout << "IsSubstring:" << text << " , " << pattern << " : " << isSubstring(pattern, text) << std::endl;
     
     std::cout << "isPalindrome: racecar:" << isPalindrome("racecar") << std::endl;
     std::cout << "isPalindrome: madam:" << isPalindrome("madam") << std::endl;
     std::cout << "isPalindrome: turd:" << isPalindrome("turd") << std::endl;
-    std::cout << "isPalindrome: turd:" << isPalindrome("tutu") << std::endl;
-    std::cout << "isPalindrome: turd:" << isPalindrome("asdf") << std::endl;
     
     std::cout << "isAnagram: sudden, neddus : " << isAnagram("sudden", "neddus") << std::endl ;
     std::cout << "isAnagram: dare, read : " << isAnagram("dare", "read") << std::endl ;
-    std::cout << "isAnagram: fate, read : " << isAnagram("fate", "read") << std::endl ;
-
+ 
     std::cout << "isAnagramWithSet: sudden, neddus : " << isAnagramWithSet("sudden", "neddus") << std::endl ;
     std::cout << "isAnagramWithSet: dare, read : " << isAnagramWithSet("dare", "read") << std::endl ;
-    std::cout << "isAnagramWithSet: fate, read : " << isAnagramWithSet("fate", "read") << std::endl ;
-
 }
 
 void InterviewPrep::TestBinaryTree()

@@ -25,7 +25,6 @@
 #include <chrono>
 #include <string.h>
 #include <unordered_set>
-#include "InheritanceTest.h"
 #include "AutoPtr.h"
 #include "SharedPtr.h"
 #include "SimpleBinaryTree.h"
@@ -35,7 +34,6 @@ using namespace std;
 /*
  * 
  */
-class A;
 void TestAutoPtr();
 void TestSharedPointer();
 void TestBinaryTree();
@@ -58,7 +56,7 @@ void TestFunkyLoopOutput();
 void ReverseString(string& s);
 void RemoveDuplicates(string& s);
 bool is_letter(char c);
-void TestA();
+
 /*int main(int argc, char** argv) 
 {   
     TestA();
@@ -86,48 +84,6 @@ void TestA();
     RemoveDuplicates(s2);
     return 0;
 }*/
-
-void TestA()
-{
-    A a;
-    B b;
-    A c;
-    
-    c = b;
-    a.f();
-    b.f();
-    c.f();
-    
-    cout << "TESTING VECTOR" << endl;
-    cout << "Constructor"<< endl;
-    vector<A> v(10,a);
-    cout << "Reserve"<< endl;
-    v.reserve(10);
-    cout << "Push Back"<< endl;
-    v.push_back(a);
-    cout << "Push Resize"<< endl;
-    v.resize(100);
-}
-
-void TestAutoPtr()
-{
-    A* data = new A();
-    auto a = AutoPtr<A>(data);
-    //cout << "data address:" << a._data << endl;
-    //cout << "data:" << *(a._data) << endl;
-}
-
-void TestSharedPointer()
-{
-    A* data = new A();
-    auto ptr1 = SharedPtr<A>(data);
-    auto ptr2 = ptr1;
-    
-    if(true)
-    {
-        auto ptr3 = ptr2;
-    }
-}
 
 double CalcSqRoot(double num)
 {
@@ -233,29 +189,6 @@ void ReverseVector(vector<int> v)
     
     cout << endl;
 }
-
-/*void StringWordFreq()
-{
-    map<char*,int> m;
-//    char* s = "On a first call, the function expects a C string as argument for str, whose first character is used as the starting location to scan for tokens. In subsequent calls, the function expects a null pointer and uses the position right after the end of the last token as the new starting location for scanning.";
-    
-    char* t = strtok(s, " ,.-");
-    
-    while(t!=NULL)
-    {
-        auto it = m.find(t);
-        if(it == m.end())
-            m.insert(make_pair(t, 1));
-        
-            it->second++;
-    }
-    
-    for(auto pair : m)
-    {
-        cout << pair.first << " Occurrences:" << pair.second;
-    }
-
-}*/
 
 void TestQuickSort()
 {
@@ -419,28 +352,6 @@ void ReceiverThread(ThreadSafeQueue<string>& q)
     }
 }
 
-void TestFunkyLoopOutput()
-{
-    cout << endl << "Funky Loop:" << endl;
-    int i = 1/2;
-    // i=0 
-    cout <<"i=" << i << endl;
-    
-    int j=0;
-    if(j==0 || j++ == 1)
-    {
-        // j=0
-        cout << "j=" << j << endl;
-    }
-    
-    int k = 0;
-    while(k!=3)// && k < 100)
-    {
-        k+=2;        
-    }
-    cout << k;    
-}
-
 void ReverseString(string& s)
 {
     cout << endl << s << endl;
@@ -455,13 +366,6 @@ void ReverseString(string& s)
     cout << endl << s << endl;
 }
 
-
-/*
- ü  Write a function that removes duplicates from a string (with changing requirements, algorithm explanation, syntax questions
- * 
- * 
- */
-
 void RemoveDuplicates(string& s)
 {
   unordered_set<char> log;
@@ -471,170 +375,6 @@ void RemoveDuplicates(string& s)
   std::cout << "After:  " << s << std::endl;
 }
 
-
-
-
- /*  
-ü  Assume the variable "i" is never referenced in the code of the function, except where it's declared and where it's printed to cout. What do you think could happen so that the variable changed its value?
-ü  How would you fix the problem?
-  * 
-  * Buffer overflow? Casts? Array referencing elsewhere?
-  *
-  * 
-What I would do is set a breakpoint to trip when n=933 and k=1533, then ste through the code and watch cent[255] to see where it changes.
-
-Some debuggers also allow you to set breakpoints that trip when certain variables have changed -- so you could set a breakpoint on cent[255] to find exactly where the offending line is.
-  * /
-
-/*
-ü  Given a piece of code, what problems do you see with the code?
-ü  Implement a smart_ptr class that counts references
-  
-  #ifndef SHAREDPTR_H
-#define SHAREDPTR_H
-
-#include <iostream>
-
-using namespace std;
-
-class RC
-{
-    private:
-    int count; // Reference count
-
-    public:
-    void AddRef()
-    {
-        // Increment the reference count
-        count++;
-        cout << "Incrementing Ref Count:" << count << endl;
-    }
-
-    int Release()
-    {
-        // Decrement the reference count and
-        // return the reference count.
-        cout << "Decrementing Ref Count:" << count << endl;
-        return --count;
-    }
-};
-
-template <typename T>
-class SharedPtr
-{
-    private:
-        T* _data;
-        RC* _refCount;
-       
-    public:
-        //Default constructor
-        SharedPtr() : _data(0), _refCount(0)
-        {
-            _refCount = new RC();
-            _refCount->AddRef();
-        }
-        
-        SharedPtr(T* obj): _data(obj), _refCount(0)
-        {
-            _refCount = new RC();
-            _refCount->AddRef();
-        }           
-        
-        //Copy constructor
-        SharedPtr(const SharedPtr<T>& rhs): _data(rhs._data), _refCount(rhs._refCount)
-        {
-            _refCount->AddRef();
-        }
-                
-        //Destructor    
-        ~SharedPtr()
-        {
-            if(_refCount->Release() == 0)
-            {
-                cout << "RefCount == 0, destroying object" << endl;
-                delete _data;
-                delete _refCount;                
-            }
-        }
-        
-        //Dereference operator
-        T* operator->()
-        {
-            return _data;
-        }
-
-        //Dereference operator
-        T& operator*()
-        {
-            return *_data;
-        }
-        
-        SharedPtr<T>& operator=(const SharedPtr<T>& sp)
-        {
-            if(this != sp)
-            {
-                //Old value - release reference and release data if required
-                if(_refCount->Release()==0)
-                {
-                    delete _data;
-                    delete _refCount;
-                }
-                _data = sp._data;
-                _refCount = sp._refCount;
-                _refCount->AddRef();
-            }
-            return *this;
-        }
-};
-
-  */
-
-
-
-
-
-/*
-ü  Allocation and life of variables defined in different scopes (global, in method, in function, etc) and using different methods (new(), object instance, statics, pointers, static pointers, etc).
-static variable (class)
-lifetime = program runtime (1)
-visibility = determined by access modifiers (private/protected/public)
-static variable (global scope)
-lifetime = program runtime (1)
-visibility = the compilation unit it is instantiated in (2)
-heap variable
-lifetime = defined by you (new to delete)
-visibility = defined by you (whatever you assign the pointer to)
-stack variable
-visibility = from declaration until scope is exited
-lifetime = from declaration until declaring scope is exited
- 
- */
-
-
-
-
-
-
-
-/*ü  Counting the words in sentences with variations (count words with punctuation marks/without them)
-std::cout << "number of words: "
-          << std::distance(std::istream_iterator<std::string>(
-                               std::istringstream(str) >> std::ws),
-                           std::istream_iterator<std::string>()) << '\n';
-Just for a bit of explanation:
-
-Reading a std::string reads a word after skiping leading whitespace where a word is a sequence of non-whitespace characters.
-std::istream_iterator<T> turns an input stream into a sequence of T objects by reading corresponding objects until reading fails.
-std::istringstream takes a std::string and turns it into a stream being read from.
-The constructor argument to std::istream_iterator<T> is std::istream&, i.e., the temporary std::istringstream can't be used directly but a reference needs to be obtained. This is the only interesting effect of std::ws which also skips leading whitespace.
-std::distance() determines how many elements are in a sequence (the originally used std::count() determines how many elements in the sequence match a given condition but hte condition was actually missing).
-  
- * 
- * void replace() {
-  std::string s = "example string";
-  std::replace( s.begin(), s.end(), 'x', 'y'); // replace all 'x' to 'y'
-}
- */
 size_t num_words(const std::string &sentence)
 {
     bool previous_char_was_letter=false;
@@ -671,99 +411,6 @@ int fib(int x) {
     return fib(x-1)+fib(x-2);
 }
 
-
-/*
-ü  Basic C types such as pointers, chars, array and arithmetic with all of the above.*/
-
-/*
-ü  Function returning a pointer to an array on the stack
- int * getArray() {
-    int myArray[3] = {4, 65, 23};
-    return myArray;
-}
-myArray is a local variable and as thus the pointer is only valid until the end of its scope (which is in this case the containing function getArray) is left. If you access it later you get undefined behavior.
-
-In practice what happens is that the call to printf overwrites the part of the stack used by myArray and it then contains some other data.
-
-To fix your code you need to either declare the array in a scope that lives long enough(the main function in your example) or allocate it on the heap. If you allocate it on the heap you need to free it either manually, or in C++ using RAII.
-
-One alternative I missed(probably even the best one here) is to wrap your array into a struct and thus make it a value type. Then returning it creates a copy which survives the function return. See tp1's answer for details on this.
- 
- */
-
-/*
-ü  Various C and C++ constructs, template specialization. 
- To declare a partially specialized template that handles any pointer types, we'd add this class declaration:
-template <typename T>
-class sortedVector<T *>
-{
- 
- */
-
-/*
-ü  How to design a system that deals with very high execution flows
- * 
- * Multithreaded
- * Sync between worker threads
- *  
- */
-
-
-/*
-ü  III. How can you handle segmentation faults.
- 
- * Windows:
- * Windows error reporting
- * Core dump
- * 
- * LINUX:
- * 
- * GDB
- * Core dump
- * 
- #include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
-void ouch(int sig)
-{
-    printf("OUCH! - I got signal %d\n", sig);
-}
-int main()
-{
-    struct sigaction act;
-    act.sa_handler = ouch;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    sigaction(SIGINT, &act, 0);
-    while(1) {
-        printf("Hello World!\n");
-        sleep(1);
-    }
-} 
- 
- */
-
-
-
-
-
-
-
-/*
-ü  V. write a c function which converts a string to integer
- * 
- * The standard requires that the digits are consecutive in the character set. That means you can use:
-
- str[i] - '0'
-To translate the character's value into its equivalent numerical value.
-
-The res * 10 part is to shuffle left the digits in the running total to make room for the new digit you're inserting.
-
-For example, if you were to pass "123" to this function, res would be 1 after the first loop iteration, then 12, and finally 123.
- * 
- * 
- * 
- */
 int myAtoi(char *str)
 {
     int res = 0; // Initialize result
@@ -777,21 +424,6 @@ int myAtoi(char *str)
 }
 
 
-
-
-/*
-ü  VI. how you can remove students from a map container, remove those whose grades are below a threshold. complexity discussion.
-
-
-for(; iter != endIter; ) {
-            if (Some Condition) {
-                    aMap.erase(iter++);
-            } else {
-                    ++iter;
-            }
-}
-*/
-
 template< typename ContainerT, typename PredicateT >
   void erase_if( ContainerT& items, const PredicateT& predicate ) {
     for( auto it = items.begin(); it != items.end(); ) {
@@ -799,118 +431,3 @@ template< typename ContainerT, typename PredicateT >
       else ++it;
     }
   };
-
-/*  VII. templates: using them as a compilation time, parameter checking fence.
- * 
- *  is_same
- * If T and U name the same type with the same const-volatile qualifications, provides the member constant value equal to true. Otherwise value is false.
- *  */
-  
-  
-  /*
-ü  Given some function that gets current date and time and copies it to character array, which is allocated at the beginning of function. The wrong thing was that the array allocated inside the function scope and it will be destroyed at the end, but the function returns the address of that array. 
-ü  
-
-   * Goes out of scope, gets destroyed, undefined behaviour   
-   */
-  
-  
-  
-  
-  /*Character arrays and pointer arithmetic. Given array of characters and different expressions to access specific element in array. Need to answer what is result type and value.*/
-  
-  
-  
-  /*Given class A, and class B which is derived from A. Both of them contains function foo. Then created objects of class A and B and called functions using pointers either the same type or parent type. The question was which function will be called for each case.
-   * 
-class Animal
-{
-public:
-virtual void eat() { std::cout << "I'm eating generic food."; }
-}
-class Cat : public Animal
-{
-public:
-void eat() { std::cout << "I'm eating a rat."; }
-}
-Main:
-
-func(animal); // outputs: "I'm eating generic food."
-func(cat);    // outputs: "I'm eating a rat."   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   *   
-   * 
-   * 
-   * 
-375
-down vote
-Without "virtual" you get "early binding". Which implementation of the method is used gets decided at compile time based on the type of the pointer that you call through.
-
-With "virtual" you get "late binding". Which implementation of the method is used gets decided at run time based on the type of the pointed-to object - what it was originally constructed as. This is not necessarily what you'd think based on the type of the pointer that points to that object.
-
-class Base
-{
-  public:
-            void Method1 ()  {  std::cout << "Base::Method1" << std::endl;  }
-    virtual void Method2 ()  {  std::cout << "Base::Method2" << std::endl;  }
-};
-
-class Derived : public Base
-{
-  public:
-    void Method1 ()  {  std::cout << "Derived::Method1" << std::endl;  }
-    void Method2 ()  {  std::cout << "Derived::Method2" << std::endl;  }
-};
-
-Base* obj = new Derived ();
-  //  Note - constructed as Derived, but pointer stored as Base*
-
-obj->Method1 ();  //  Prints "Base::Method1"
-obj->Method2 ();  //  Prints "Derived::Method2"
-   */
-  
- /*Algorithm to reverse strings*/
-
-  void ReverseString2(string& s)
-{
-    cout << endl << s << endl;
-    auto i1 = s.begin();
-    auto i2 = s.end();
-    
-    while(i1 < i2 && i1 != --i2)
-    {
-        iter_swap(i1, i2);
-        i1++;
-    }    
-    cout << endl << s << endl;
-}
-
-  
-  
-  /*
-ü  Non-virtual/virtual function calls
-ü  Splitting linked-list algo
-   * 
-   * list::splice
-   * 
-   * mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
-                                // mylist1: 30 3 4 1 10 20
-
-element range (3)	
-void splice (iterator position, list& x, iterator first, iterator last);
-   * insert at begin
-   * 
-   * Iterate through linked list until you're at last node you want before split.
-Store this address in temporary variable, end.
-Create new LinkedList instance.
-Set head of new linked list to end.next. //Starts new linked list
-Set end.next to null. //Cuts off old linked at end.
-  */
-
-
-
