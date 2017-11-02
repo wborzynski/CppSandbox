@@ -79,7 +79,49 @@ public:
         return longestSequence;
     }
     
+    std::vector<std::vector<int>> powerSet(std::vector<int>& in, int pos=0)
+    {
+        int size = in.size();
+        std::vector<std::vector<int>> res;
+        if(pos >= size)
+        {
+            res.push_back(std::vector<int>());
+        }
+        else
+        {
+            std::vector<std::vector<int>> rest = powerSet(in, pos + 1);
+            res = rest;
+            for(auto& subset : rest)
+            {
+                subset.push_back(in[pos]);
+                res.push_back(subset);
+            }
+        }
+        return res;
+    }
     
+/*    // Accepts a set of integers and optionally a position to start reading the
+// array from.
+// Returns the powerset of integers from arr [pos=0 ... arr.size()-1]
+vector< vector<int> > powerset1(const vector<int> &arr, int pos=0) {
+    int arr_size = arr.size();
+    vector< vector<int> > results;
+
+    if (pos >= arr_size) {
+        // Recursion base case
+        results.push_back(vector<int>());
+        return results;
+    }
+
+    vector< vector<int> > rest = powerset1(arr, pos+1);
+    results = rest;
+    for (auto &subset : rest) {
+        subset.push_back(arr[pos]);
+        results.push_back(subset);
+    }
+    return results;
+}
+    */
     
     
     //Date Diff
@@ -183,6 +225,7 @@ public:
     //Flatten
     void TestBinaryTree();
     
+    void TestPowerSet();
     
     void TestLinkedList();
     
