@@ -37,20 +37,9 @@ int main(int argc, char** argv)
 
 void InterviewPrep::TestPowerSet()
 {
-    std::vector<int> vec = {1,2,3,4};
+    std::vector<int> vec = {1,2,5,10};
     std::vector<std::vector<int>> out = powerSet(vec);
-    
-    for(auto v : out)
-    {
-        std::cout << "{";
-        for(auto n : v)
-        {
-            std::cout << n << ",";
-        }
-        std::cout << "}" ; 
-                
-    }
-    std::cout << std::endl;
+    printPowerSet(out);
 }
 
 void InterviewPrep::TestLinkedList()

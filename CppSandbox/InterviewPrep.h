@@ -79,23 +79,43 @@ public:
         return longestSequence;
     }
     
+    void printPowerSet(std::vector<std::vector<int>>& in)
+    {
+        for(auto v : in)
+        {
+            std::cout << "{";
+            for(auto n : v)
+            {
+                std::cout << n << ",";
+            }
+            std::cout << "}" ; 
+        }
+        std::cout << std::endl;
+    }
+    
     std::vector<std::vector<int>> powerSet(std::vector<int>& in, int pos=0)
     {
         int size = in.size();
         std::vector<std::vector<int>> res;
         if(pos >= size)
         {
+            std::cout << pos << " > size: " << size << std::endl;
             res.push_back(std::vector<int>());
         }
         else
         {
             std::vector<std::vector<int>> rest = powerSet(in, pos + 1);
+            std::cout << "Returned from:" << pos+1 << std::endl;
+            printPowerSet(rest);
             res = rest;
+            
             for(auto& subset : rest)
             {
                 subset.push_back(in[pos]);
                 res.push_back(subset);
             }
+            std::cout << " Added:" << in[pos] << std::endl;
+            printPowerSet(rest);
         }
         return res;
     }
@@ -214,7 +234,7 @@ vector< vector<int> > powerset1(const vector<int> &arr, int pos=0) {
      */
     int getNumberOfPathsInGraph(int m, int n)
     {
-        if(m==0 | n==0)
+        if(m==0 || n==0)
             return 1;
         else
             return getNumberOfPathsInGraph(m-1, n) + getNumberOfPathsInGraph(m, n-1);        
