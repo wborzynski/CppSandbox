@@ -99,14 +99,11 @@ public:
         std::vector<std::vector<int>> res;
         if(pos >= size)
         {
-            std::cout << pos << " > size: " << size << std::endl;
             res.push_back(std::vector<int>());
         }
         else
         {
             std::vector<std::vector<int>> rest = powerSet(in, pos + 1);
-            std::cout << "Returned from:" << pos+1 << std::endl;
-            printPowerSet(rest);
             res = rest;
             
             for(auto& subset : rest)
@@ -114,8 +111,6 @@ public:
                 subset.push_back(in[pos]);
                 res.push_back(subset);
             }
-            std::cout << " Added:" << in[pos] << std::endl;
-            printPowerSet(rest);
         }
         return res;
     }
